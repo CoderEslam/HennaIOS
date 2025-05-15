@@ -11,6 +11,7 @@ import ComposeApp
 
 struct ProfilePageView: View {
     @StateObject private var profileViewModel = ProfileViewModel()
+    @StateObject private var userDataViewModel = SettingsViewModel()
     var actionHome:()-> Void
     let tabs: [Tab] = [
         .init(icon: Image(systemName: "person"), title: "information".localized),
@@ -218,7 +219,9 @@ struct ProfilePageView: View {
                     }
                 }
             }.onAppear{
-                profileViewModel.showUser()
+                if userDataViewModel.token != "" {
+                    profileViewModel.showUser()
+                }
             }
         }.padding(.vertical)
     }

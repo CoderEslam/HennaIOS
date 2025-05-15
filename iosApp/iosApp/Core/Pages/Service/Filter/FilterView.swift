@@ -89,7 +89,7 @@ struct FilterView: View {
                 FilterServiceResultView(filterList: $filterViewModel.state.filterList, dismiss: $filterViewModel.state.showFilterResult)
             })
             .showLoader(loading: $filterViewModel.state.isLoading)
-            .showErrorDialog(showError: $filterViewModel.state.showError, rawErrorMessage: filterViewModel.state.error)
+            .showErrorDialog(showError: $filterViewModel.state.showError, rawErrorMessage: $filterViewModel.state.error)
             .onAppear{
                 filterViewModel.getCategories()
                 filterViewModel.getCurrency()

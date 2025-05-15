@@ -98,8 +98,7 @@ struct AddServiceView: View {
                                 }
                         }
                     case .error(let error):
-                        Text("")
-                            .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                        ErrorDialogView(errorMessage: error)
 //                        ErrorDialogView(errorMessage: "\(error)")
                     }
                 }.frame(maxWidth: .infinity)
@@ -128,8 +127,7 @@ struct AddServiceView: View {
                                 }
                         }
                     case .error(let error):
-                        Text("")
-                            .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                        ErrorDialogView(errorMessage: error)
                     }
                 }.frame(maxWidth: .infinity)
                     .padding(.vertical,4)
@@ -187,8 +185,7 @@ struct AddServiceView: View {
                 case .success(let data):
                     Text("\(data)")
                 case .error(let error):
-                    Text("")
-                        .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                    ErrorDialogView(errorMessage: error)
                 }
                 
                 Text("upload".localized)

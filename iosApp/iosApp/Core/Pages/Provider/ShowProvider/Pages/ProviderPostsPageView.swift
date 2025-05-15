@@ -78,7 +78,7 @@ struct ProviderPostsPageView: View {
             AddPostView(dismiss: $providerViewModel.state.addPost)
         })
         .showLoader(loading: $providerViewModel.state.isLoading)
-        .showErrorDialog(showError: $providerViewModel.state.showError, rawErrorMessage: providerViewModel.state.error)
+        .showErrorDialog(showError: $providerViewModel.state.showError, rawErrorMessage: $providerViewModel.state.error)
         .onAppear{
             providerViewModel.getPostsByProviderId(Int32(truncating: providerModel_.id ?? 0))
             providerViewModel.showUser()

@@ -55,7 +55,7 @@ struct CommentsView: View {
                     Color.gray.opacity(0.5)
                 }
         }.showLoader(loading: $commentViewModel.state.isLoading)
-            .showErrorDialog(showError: $commentViewModel.state.showError, rawErrorMessage: commentViewModel.state.error)
+            .showErrorDialog(showError: $commentViewModel.state.showError, rawErrorMessage: $commentViewModel.state.error)
             .onAppear{
                 commentViewModel.getCommentPostById(Int32(postId))
                 commentViewModel.showUser()

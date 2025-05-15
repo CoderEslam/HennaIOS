@@ -86,7 +86,7 @@ struct AddPostView: View {
             }
         }
         .showLoader(loading: $addNewPostViewModel.state.isLoading)
-        .showErrorDialog(showError: $addNewPostViewModel.state.showError, rawErrorMessage: addNewPostViewModel.state.error)
+        .showErrorDialog(showError: $addNewPostViewModel.state.showError, rawErrorMessage: $addNewPostViewModel.state.error)
         .padding()
         .onAppear{
             addNewPostViewModel.showUser()

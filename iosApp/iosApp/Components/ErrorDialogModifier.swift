@@ -14,7 +14,7 @@ struct ErrorDialogModifier: ViewModifier {
     @State private var auth: Bool = false
     // Binding to control when the error dialog should be shown
     @Binding var showError: Bool
-    var rawErrorMessage: String
+    @Binding var rawErrorMessage: String
     
     func body(content: Content) -> some View {
         content
@@ -39,9 +39,13 @@ struct ErrorDialogModifier: ViewModifier {
                     EmptyView()
                 }
             )
-            .onChange(of: showError) { newValue in
-                if newValue {
+            .onChange(of: rawErrorMessage) { newValue in
+                if newValue != "" {
                     parseErrorMessage()
+                }
+            }.onChange(of: errorMessage){ newValue in
+                if newValue == "Unauthenticated." {
+                    errorMessage = "you_are_not_unauthenticated".localized
                 }
             }
     }
@@ -72,7 +76,7 @@ struct ErrorDialogModifier: ViewModifier {
 
 
 extension View {
-    func showErrorDialog(showError: Binding<Bool>, rawErrorMessage: String) -> some View {
+    func showErrorDialog(showError: Binding<Bool>, rawErrorMessage: Binding<String>) -> some View {
         modifier(ErrorDialogModifier(showError: showError, rawErrorMessage: rawErrorMessage))
     }
 }
@@ -81,7 +85,7 @@ extension View {
 struct ErrorDialogViewExapmle: View {
     var body: some View {
         Text("Hello")
-            .showErrorDialog(showError: .constant(true), rawErrorMessage: "Errrrror")
+            .showErrorDialog(showError: .constant(true), rawErrorMessage: .constant("Errrrror"))
     }
 }
 

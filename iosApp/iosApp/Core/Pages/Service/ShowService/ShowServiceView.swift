@@ -158,8 +158,7 @@ struct ShowServiceView: View {
                                 }
                             })
                         case .error(let error):
-                            Text("")
-                                .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                            ErrorDialogView(errorMessage: error)
                         }
                         
                         Text("add_opinion".localized)
@@ -184,8 +183,7 @@ struct ShowServiceView: View {
                     })
                 }
             case .error(let error):
-                Text("")
-                    .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                ErrorDialogView(errorMessage: error)
             }
         }
         .frame(maxWidth: .infinity,maxHeight: .infinity)

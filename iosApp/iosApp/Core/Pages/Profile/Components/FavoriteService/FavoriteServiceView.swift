@@ -33,7 +33,7 @@ struct FavoriteServiceView: View {
                 }
             }
         }.showLoader(loading: $favoriteServiceViewModel.state.isLoading)
-            .showErrorDialog(showError: $favoriteServiceViewModel.state.showError, rawErrorMessage: favoriteServiceViewModel.state.error)
+            .showErrorDialog(showError: $favoriteServiceViewModel.state.showError, rawErrorMessage: $favoriteServiceViewModel.state.error)
         .onAppear{
             favoriteServiceViewModel.getFavoriteService()
         }.fullScreenCover(isPresented: $showService, content: {

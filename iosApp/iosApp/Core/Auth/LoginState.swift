@@ -24,7 +24,7 @@ struct LoginState {
     var passwordVisible: Bool = false
     var isLoading: Bool = false
     var loginSuccess: Bool = false
-    var error: String? = nil
+    var error: String = ""
     var showError:Bool = false
     var loginCallback: LoginCallback? = nil
     var home:Bool = false

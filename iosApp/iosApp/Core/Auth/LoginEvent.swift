@@ -23,6 +23,6 @@ enum LoginEvent {
     case checked(Bool)
     case login
     case signUp
-    case error(String?)
+    case error(String)
     case reset
 }

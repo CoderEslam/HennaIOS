@@ -36,8 +36,7 @@ struct ReviewItemView : View {
                     action()
                 }.hidden()
             case .error(let error):
-                Text("")
-                    .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                ErrorDialogView(errorMessage: error)
             }
             RatingView(selected: .constant(Int(truncating: review.rate ?? 0)))
             if review.user?.id ==  Int32(userId) {

@@ -11,6 +11,7 @@ import ComposeApp
 
 struct ProfileProviderPageView: View {
     @StateObject private var profileViewModel = ProfileViewModel()
+    @StateObject private var userDataViewModel = SettingsViewModel()
     var actionHome:()-> Void
     private let tabs: [Tab] = [
         .init(icon: Image(systemName: ""), title: "information".localized),
@@ -221,10 +222,12 @@ struct ProfileProviderPageView: View {
                     }
                 }
             }.showLoader(loading: $profileViewModel.state.isLoading)
-                .showErrorDialog(showError: $profileViewModel.state.showError, rawErrorMessage: profileViewModel.state.error)
+                .showErrorDialog(showError: $profileViewModel.state.showError, rawErrorMessage: $profileViewModel.state.error)
             .onAppear{
-                profileViewModel.showUser()
-                profileViewModel.showProvider()
+                if userDataViewModel.token != "" {
+                    profileViewModel.showUser()
+                    profileViewModel.showProvider()
+                }
             }
         }
     }

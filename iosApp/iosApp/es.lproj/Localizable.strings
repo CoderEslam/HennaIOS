@@ -212,3 +212,4 @@
 "block" = "Proveedor de bloques";
 "report" = "Informe";
 "login_as_guest" = "Inicia sesión como invitado";
+"you_are_not_unauthenticated" = "No estás desautenticado";

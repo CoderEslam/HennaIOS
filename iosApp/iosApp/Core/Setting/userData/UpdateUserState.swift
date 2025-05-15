@@ -28,6 +28,6 @@ struct UpdateUserState {
     var interests:[InterestsModel] = []
     var isLoading:Bool = false
     var showError = false
-    var error:String? = nil
+    var error:String = ""
 }
 

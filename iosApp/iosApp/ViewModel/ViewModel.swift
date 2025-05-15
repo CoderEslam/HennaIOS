@@ -49,7 +49,6 @@ class ViewModel : ObservableObject {
         } error: { error in
             completion(.error(error))
         }
-        
     }
     
     func updateUser(updateUser: UpdateUser , completion: @escaping (RequestState<UserModel>) -> Void){

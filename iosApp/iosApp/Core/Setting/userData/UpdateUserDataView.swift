@@ -177,7 +177,7 @@ struct UpdateUserDataView : View {
                 }
         }
         .showLoader(loading: $updateUserViewModel.state.isLoading)
-        .showErrorDialog(showError: $updateUserViewModel.state.showError , rawErrorMessage: updateUserViewModel.state.error ?? "")
+        .showErrorDialog(showError: $updateUserViewModel.state.showError , rawErrorMessage: $updateUserViewModel.state.error)
         .padding(.horizontal)
     }
 }

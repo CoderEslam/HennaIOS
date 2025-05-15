@@ -37,7 +37,7 @@ struct ChatView: View {
                             }
                         }
                     case .error(let error):
-                        ErrorDialogView(errorMessage: error)
+                        ErrorDialogView(errorMessage: "{\"message\":\"Unauthenticated.\"}")
                     }
                 }.onAppear {
                     firebaseViewModel.readAllChats(providerId: Int(id) ?? -1) { response in

@@ -19,5 +19,5 @@ struct SettingState {
     var goToAuth:Bool = false
     var isLoading = false
     var showError = false
-    var error: String? = nil
+    var error: String = ""
 }

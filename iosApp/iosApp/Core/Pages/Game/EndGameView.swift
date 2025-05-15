@@ -89,7 +89,7 @@ struct EndGameView: View {
             }
         }
         //.showLoader(loading: $gameViewModel.state.isLoading)
-        .showErrorDialog(showError: $gameViewModel.state.showError, rawErrorMessage: gameViewModel.state.error)
+        .showErrorDialog(showError: $gameViewModel.state.showError, rawErrorMessage: $gameViewModel.state.error)
         .fullScreenCover(isPresented: $showProvider, content: {
             ShowProviderView(dismiss: $showProvider, providerId: $providerId)
         })

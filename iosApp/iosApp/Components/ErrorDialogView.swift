@@ -34,14 +34,19 @@ struct ErrorDialogView: View {
         } message: {
             Text(errorMessage)
         }
-        .onAppear {
-            parseErrorMessage()
+        .onChange(of: errorMessage) { newValue in
+            if newValue != "" {
+                parseErrorMessage()
+            }
+        }.onChange(of: errorMessage){ newValue in
+            if newValue == "Unauthenticated." {
+                errorMessage = "you_are_not_unauthenticated".localized
+            }
         }
     }
     
     private func parseErrorMessage() {
         guard let data = errorMessage.data(using: .utf8) else { return }
-        
         do {
             if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 if let success = json["success"] as? Bool {

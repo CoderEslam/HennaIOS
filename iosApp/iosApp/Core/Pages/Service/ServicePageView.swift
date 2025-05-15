@@ -96,8 +96,7 @@ struct ServicePageView: View {
                                 }
                             }
                         case .error(let error):
-                            Text("")
-                                .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                            ErrorDialogView(errorMessage: error)
                         }
                         
                         //post gridview
@@ -128,8 +127,7 @@ struct ServicePageView: View {
                                 }
                             })
                         case .error(let error):
-                            Text("")
-                                .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                            ErrorDialogView(errorMessage: error)
                         }
                         
                     }

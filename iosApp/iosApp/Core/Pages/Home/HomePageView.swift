@@ -222,18 +222,22 @@ struct HomePageView: View {
             }
         }
         .onAppear{
-            mainViewModel.providerList { response in
-                providerResponseState = response
-            }
-            mainViewModel.serviceList { response in
-                serviceResponseState = response
-            }
             mainViewModel.categoryList { response in
                 categoryResponseState = response
+                if response.isSuccess{
+                    mainViewModel.serviceList { response in
+                        serviceResponseState = response
+                        if response.isSuccess{
+                            mainViewModel.providerList { response in
+                                providerResponseState = response
+                            }
+                        }
+                    }
+                }
             }
-//            mainViewModel.getAdv { response in
-//                advResponseState = response
-//            }
+            //            mainViewModel.getAdv { response in
+            //                advResponseState = response
+            //            }
         }.fullScreenCover(isPresented: $filterService, content: {
             VStack{
                 switch filterServiceResponseState {

@@ -52,8 +52,7 @@ struct AddReviewView: View {
                             action()
                         }
                     case .error(let error):
-                        Text("")
-                            .showErrorDialog(showError: .constant(true), rawErrorMessage: error)
+                        ErrorDialogView(errorMessage: error)
                     }
                 }.frame(maxWidth: .infinity)
                 Text("submit_opinion".localized)

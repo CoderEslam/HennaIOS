@@ -214,3 +214,4 @@
 "block" = "Block provider";
 "report" = "Report";
 "login_as_guest" = "Login as guest";
+"you_are_not_unauthenticated" = "You are not unauthenticated";

@@ -16,6 +16,7 @@ class SettingsViewModel : ObservableObject {
     
     init() {
         getToken()
+        getTokenNormal()
     }
     
     func getToken() {
@@ -23,6 +24,12 @@ class SettingsViewModel : ObservableObject {
             if (token != nil && token.isNotEmpty){
                 self.token = token
             }
+        }
+    }
+    
+    func getTokenNormal() {
+        userDateViewModel.getToken { token in
+            self.token = token
         }
     }
     

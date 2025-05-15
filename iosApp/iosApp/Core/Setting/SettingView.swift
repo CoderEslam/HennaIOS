@@ -102,6 +102,10 @@ struct SettingView: View {
                             Image(systemName: "chevron.right")
                                 .foregroundColor(.black)
                         }.frame(height: 50)
+                            .onTapGesture{
+                                self.link = "https://hennapp.es/contact"
+                                self.open.toggle()
+                            }
                         
                         Divider()
                         
@@ -186,7 +190,7 @@ struct SettingView: View {
             }
         }
 //        .showLoader(loading: $settingViewModel.state.isLoading)
-        .showErrorDialog(showError: $settingViewModel.state.showError, rawErrorMessage: settingViewModel.state.error ?? "")
+        .showErrorDialog(showError: $settingViewModel.state.showError, rawErrorMessage: $settingViewModel.state.error)
         .navigationViewStyle(StackNavigationViewStyle())
     }
 }

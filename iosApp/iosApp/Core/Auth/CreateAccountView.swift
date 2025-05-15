@@ -127,7 +127,7 @@ extension CreateAccountView {
         }
         .frame(maxWidth: .infinity , maxHeight:.infinity)
         .showLoader(loading: $authViewModel.state.isLoading)
-        .showErrorDialog(showError: $authViewModel.state.showError, rawErrorMessage: authViewModel.state.error ?? "")
+        .showErrorDialog(showError: $authViewModel.state.showError, rawErrorMessage: $authViewModel.state.error)
         .ignoresSafeArea()
     }
     

@@ -70,7 +70,7 @@ extension LoginView {
             }.padding()
         }
         .showLoader(loading: $authViewModel.state.isLoading)
-        .showErrorDialog(showError: $authViewModel.state.showError, rawErrorMessage: authViewModel.state.error ?? "")
+        .showErrorDialog(showError: $authViewModel.state.showError, rawErrorMessage: $authViewModel.state.error)
         .background{
             NavigationLink(destination: HomeView(), isActive: $authViewModel.state.home, label: {
                 EmptyView()

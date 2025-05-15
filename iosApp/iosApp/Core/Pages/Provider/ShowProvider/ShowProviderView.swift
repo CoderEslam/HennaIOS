@@ -18,6 +18,7 @@ struct ShowProviderView: View {
     @StateObject private var firebaseViewModel = FirebaseViewModel()
     @State private var providerDataResponseState : RequestState<ProviderModelData> = .idle
     @State private var chat = false
+    @State private var showError = false
     @State private var userProviderId = 0
     private let tabs: [Tab] = [
         .init(icon: Image(systemName: ""), title: "information".localized),
@@ -136,9 +137,14 @@ struct ShowProviderView: View {
         })
         .navigationBarBackButtonHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+        .showErrorDialog(showError: $showError, rawErrorMessage: .constant("{\"message\":\"Unauthenticated.\"}"))
         .onAppear{
-            mainViewModel.showProviderById(id: providerId) { response in
-                providerDataResponseState = response
+            if userData.token != "" {
+                mainViewModel.showProviderById(id: providerId) { response in
+                    providerDataResponseState = response
+                }
+            } else {
+                showError.toggle()
             }
         }
     }
