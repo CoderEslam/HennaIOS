@@ -29,14 +29,16 @@ struct PostItemView: View {
                     .clipShape(Circle())
                 Text("\(post.user?.first_name ?? "") \(post.user?.last_name ?? "")")
                 Spacer()
-                if userData.getUserId() == Int(truncating: post.user_id ?? -1) {
-                    Menu {
-                        Button("delete".localized, action: deletePost)
-                    } label: {
-                        Label("", systemImage: "trash")
-                            .foregroundColor(.red)
-                            .padding()
-                            .bold()
+                if userData.token != "" {
+                    if userData.getUserId() == Int(truncating: post.user_id ?? -1) {
+                        Menu {
+                            Button("delete".localized, action: deletePost)
+                        } label: {
+                            Label("", systemImage: "trash")
+                                .foregroundColor(.red)
+                                .padding()
+                                .bold()
+                        }
                     }
                 }
                 Menu {

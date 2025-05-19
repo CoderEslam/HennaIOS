@@ -178,7 +178,7 @@ struct SettingView: View {
                     }
                 }
             }.fullScreenCover(isPresented: $open, content: {
-                SafariView(url: URL(string: "\(link)")!)
+                SafariView(url: $link)
             })
             .background{
                 NavigationLink(destination: AuthView(), isActive: $settingViewModel.state.goToAuth, label: {

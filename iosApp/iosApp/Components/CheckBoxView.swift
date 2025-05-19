@@ -22,7 +22,7 @@ struct CheckBoxView: View {
                     open.toggle()
                 }
         }.fullScreenCover(isPresented: $open, content: {
-            SafariView(url: URL(string: "https://hennapp.es/terms")!)
+            SafariView(url: .constant("https://hennapp.es/terms"))
         })
     }
 }

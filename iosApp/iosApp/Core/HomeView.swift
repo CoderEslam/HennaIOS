@@ -31,13 +31,21 @@ struct HomeView: View {
                         }
                     }
                 case .profile:
-                    if userData.getProvider() == nil {
-                        ProfilePageView(){
-                            withAnimation{
-                                selectedTab = .home
+                    if userData.token != "" {
+                        if userData.getProvider() != Provider(brand_name: "", id: -1, provider_bio: "", registration_number: "", user_id: -1) {
+                            ProfilePageView(){
+                                withAnimation{
+                                    selectedTab = .home
+                                }
+                            }
+                            
+                        } else {
+                            ProfileProviderPageView(){
+                                withAnimation{
+                                    selectedTab = .home
+                                }
                             }
                         }
-                        
                     } else {
                         ProfileProviderPageView(){
                             withAnimation{
@@ -45,6 +53,7 @@ struct HomeView: View {
                             }
                         }
                     }
+                    
                 case .service:
                     ServicePageView(){
                         withAnimation{

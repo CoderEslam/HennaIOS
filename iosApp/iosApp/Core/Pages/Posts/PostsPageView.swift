@@ -11,6 +11,7 @@ import ComposeApp
 
 struct PostsPageView: View {
     @StateObject private var mainViewModel = ViewModel()
+    @StateObject private var settingsViewModel : SettingsViewModel = SettingsViewModel()
     @State private var postsResponseState : RequestState<PostsList> = .idle
     @State private var postResponseState : RequestState<Post_> = .idle
     @State private var showContent : Bool = false
@@ -83,8 +84,10 @@ struct PostsPageView: View {
                 Text("\(error)")
             }
         }.onAppear{
-            mainViewModel.posts { response in
-                postsResponseState = response
+            if settingsViewModel.token != "" {
+                mainViewModel.posts { response in
+                    postsResponseState = response
+                }
             }
         }.fullScreenCover(isPresented: $showContent, content: {
             ShowPostContentView(url: "")

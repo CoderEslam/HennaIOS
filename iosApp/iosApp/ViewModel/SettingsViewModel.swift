@@ -55,7 +55,7 @@ class SettingsViewModel : ObservableObject {
         Int(truncating: 25)
     }
     
-    func getProvider() -> Provider? {
+    func getProvider() -> Provider {
         return userDateViewModel.getProviderNormal()
     }
     

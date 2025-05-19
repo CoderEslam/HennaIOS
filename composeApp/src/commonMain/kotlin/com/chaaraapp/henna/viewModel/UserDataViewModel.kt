@@ -25,7 +25,7 @@ class UserDataViewModel() : ScreenModel {
     }
 
     fun getUserID(id: (Int) -> Unit) {
-        id(settingsManager.getInt(Constants.USER_ID))
+        id(settingsManager.getUser().id)
     }
 
     fun getTokenFlow(token: (value: String) -> Unit) = screenModelScope.launch {
@@ -50,11 +50,11 @@ class UserDataViewModel() : ScreenModel {
         }
     }
 
-    fun getProviderNormal(): Provider? {
+    fun getProviderNormal(): Provider {
         return if (settingsManager.getUser().provider?.id != -1) {
-            settingsManager.getUser().provider
+            settingsManager.getUser().provider ?: Provider()
         } else {
-            null
+            Provider()
         }
     }
 
