@@ -150,6 +150,7 @@ struct ShowProviderView: View {
     }
     func blockProvider(){
         userData.setProvidersBlockIds(id: providerId)
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

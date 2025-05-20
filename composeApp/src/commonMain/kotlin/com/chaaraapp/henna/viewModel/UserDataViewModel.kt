@@ -3,12 +3,14 @@ package com.chaaraapp.henna.viewModel
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import com.chaaraapp.henna.core.extensions.fromJson
+import com.chaaraapp.henna.core.extensions.fromJson2
 import com.chaaraapp.henna.core.extensions.isNotNullOrEmptyString
 import com.chaaraapp.henna.core.extensions.toJson
 import com.chaaraapp.henna.domain.model.auth.login.Provider
 import com.chaaraapp.henna.domain.model.auth.login.User
 import com.chaaraapp.henna.getSettings
 import com.chaaraapp.henna.utils.Constants
+import com.chaaraapp.henna.utils.Log
 import com.chaaraapp.henna.utils.SettingsManager
 import kotlinx.coroutines.launch
 
@@ -73,15 +75,29 @@ class UserDataViewModel() : ScreenModel {
 
     //block providers
     fun getProvidersBlockIds(): List<Int> {
-        return settingsManager.getString(Constants.PROVIDERS_BLOCK_IDS).fromJson<List<Int>>()
-            ?: emptyList()
+        return try {
+            settingsManager.getString(Constants.PROVIDERS_BLOCK_IDS)
+                .fromJson2<List<Int>>()
+                ?: emptyList()
+            emptyList()
+        } catch (e: Exception) {
+            Log.e(TAG, e.message)
+            emptyList()
+        }
     }
 
     fun setProvidersBlockIds(id: Int) {
-        val ids = settingsManager.getString(Constants.PROVIDERS_BLOCK_IDS).fromJson<List<Int>>()
-            ?: emptyList()
-        ids.toMutableList().add(id)
-        settingsManager.saveString(Constants.PROVIDERS_BLOCK_IDS, ids.toJson())
+        try {
+            val ids = settingsManager.getString(Constants.PROVIDERS_BLOCK_IDS)
+                .fromJson2<MutableList<Int>>()
+                ?: mutableListOf()
+            if (!ids.contains(id)) {
+                ids.add(id)
+            }
+            settingsManager.saveString(Constants.PROVIDERS_BLOCK_IDS, ids.toJson())
+        } catch (e: Exception) {
+            Log.e(TAG, e.message)
+        }
     }
 
     fun loginAsGuest() {
@@ -92,4 +108,7 @@ class UserDataViewModel() : ScreenModel {
         settingsManager.clear()
     }
 
+    companion object {
+        private const val TAG = "UserDataViewModel"
+    }
 }

@@ -1,6 +1,7 @@
 package com.chaaraapp.henna.utils
 
 import com.chaaraapp.henna.core.extensions.fromJson
+import com.chaaraapp.henna.core.extensions.fromJson2
 import com.chaaraapp.henna.core.extensions.toJson
 import com.chaaraapp.henna.domain.model.auth.login.User
 import com.russhwolf.settings.Settings
@@ -11,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import org.jetbrains.compose.resources.getString
 
 
 class SettingsManager(private val settings: Settings) {
@@ -77,11 +79,21 @@ class SettingsManager(private val settings: Settings) {
 
     //block providers
     fun getProvidersBlockIds(): List<Int> {
-        val ids =
-            getString(Constants.PROVIDERS_BLOCK_IDS).split(",").toString().fromJson<List<Int>>()
-                ?: listOf(-1)
-        return listOf(1) //getString(Constants.PROVIDERS_BLOCK_IDS).fromJson<List<Int>>() ?: listOf(-1)
+        return try {
+            getString(Constants.PROVIDERS_BLOCK_IDS)
+                .fromJson2<List<Int>>()
+                ?: emptyList()
+        } catch (e: Exception) {
+            Log.e(TAG, e.message)
+            emptyList()
+        }
     }
+//    fun getProvidersBlockIds(): List<Int> {
+//        val ids =
+//            getString(Constants.PROVIDERS_BLOCK_IDS).split(",").toString().fromJson<List<Int>>()
+//                ?: listOf(-1)
+//        return listOf(1) //getString(Constants.PROVIDERS_BLOCK_IDS).fromJson<List<Int>>() ?: listOf(-1)
+//    }
 
     fun setProvidersBlockIds(id: Int) {
         val ids =
@@ -89,5 +101,9 @@ class SettingsManager(private val settings: Settings) {
                 ?: listOf(-1)
         ids.toMutableList().add(id)
         saveString(Constants.PROVIDERS_BLOCK_IDS, ids.toJson())
+    }
+
+    companion object {
+        private const val TAG = "SettingManager"
     }
 }

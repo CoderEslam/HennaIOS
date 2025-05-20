@@ -49,6 +49,7 @@ import com.chaaraapp.henna.domain.model.user.UserModel
 import com.chaaraapp.henna.getSettings
 import com.chaaraapp.henna.utils.Constants
 import com.chaaraapp.henna.utils.Constants.BASE_URL
+import com.chaaraapp.henna.utils.Log
 import com.chaaraapp.henna.utils.SettingsManager
 import com.chaaraapp.henna.utils.createHttpClient
 import com.skydoves.sandwich.ktor.bodyString
@@ -343,7 +344,6 @@ class MainViewModel() : ScreenModel {
             client.getApiResponse<ProviderList>(Constants.PROVIDERS) {
                 //
             }.suspendOnSuccess {
-                response(data)
                 response(ProviderList(data = data.data.filterNot {
                     settingsManager.getProvidersBlockIds().contains(it.id)
                 }))
@@ -435,7 +435,9 @@ class MainViewModel() : ScreenModel {
             client.getApiResponse<ServiceList>(Constants.SERVICES) {
                 //
             }.suspendOnSuccess {
-                response(data)
+                response(ServiceList(data = data.data.filterNot {
+                    settingsManager.getProvidersBlockIds().contains(it.provider_id)
+                }))
             }.suspendOnError {
                 log(bodyString())
                 log(statusCode.code)
@@ -498,10 +500,11 @@ class MainViewModel() : ScreenModel {
         error: (String) -> Unit
     ) = screenModelScope.launch {
         client.postApiResponse<FilterList>(Constants.FILTER_SERVICE) {
-
             setBody(filterService)
         }.suspendOnSuccess {
-            response(data)
+            response(FilterList(data = data.data?.filterNot {
+                settingsManager.getProvidersBlockIds().contains(it.provider_id)
+            }))
         }.suspendOnError {
             log(bodyString())
             log(statusCode.code)
@@ -547,7 +550,9 @@ class MainViewModel() : ScreenModel {
         client.postApiResponse<ProviderList>(Constants.PROVIDERS_SEARCH) {
             setBody(serviceSearch)
         }.suspendOnSuccess {
-            response(data)
+            response(ProviderList(data = data.data.filterNot {
+                settingsManager.getProvidersBlockIds().contains(it.id)
+            }))
         }.suspendOnError {
             log(bodyString())
             log(statusCode.code)
